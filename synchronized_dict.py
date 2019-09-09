@@ -24,7 +24,7 @@ Module providing primitive, synchronized dictionary-like structure
 with thread safe access.
 '''
 import collections
-from threading import RLock
+import threading
 
 
 class SynchronizedDict(collections.MutableMapping):
@@ -32,9 +32,9 @@ class SynchronizedDict(collections.MutableMapping):
     Class representing simple, synchronized dictionary
     '''
     def __init__(self, *args, **kwargs):
-        self._map = dict()       # Structure for storing data
+        self._map = dict()              # Structure for storing data
         self.update(dict(*args, **kwargs))
-        self._lock = RLock()     # Access lock
+        self._lock = threading.RLock()  # Access lock
 
     @classmethod
     def fromkeys(cls, iterable, value=None):
